@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lift Log</title>
+  <meta name="description" content="A simple offline workout tracker.">
+  <meta name="theme-color" content="#f4f4f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f0f12" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Lift Log">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Screen 1: history -->
+  <section id="view-history" class="view" hidden>
+    <header class="bar top">
+      <h1>Workouts</h1>
+      <button class="icon-btn" id="btn-menu" aria-label="Backup and restore">
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="5" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="19" cy="12" r="2" fill="currentColor"/></svg>
+      </button>
+    </header>
+    <main class="content" id="history-list"></main>
+    <footer class="bar bottom">
+      <button class="btn primary" id="btn-start">Start workout</button>
+    </footer>
+  </section>
+
+  <!-- Screen 2: workout details -->
+  <section id="view-detail" class="view" hidden>
+    <header class="bar top">
+      <button class="icon-btn back" id="btn-back" aria-label="Back to workouts">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Workouts
+      </button>
+    </header>
+    <main class="content" id="detail-body"></main>
+    <footer class="bar bottom">
+      <button class="btn danger" id="btn-delete">Delete</button>
+      <button class="btn primary" id="btn-edit">Edit</button>
+    </footer>
+  </section>
+
+  <!-- Screen 3: new / edit workout -->
+  <section id="view-edit" class="view" hidden>
+    <header class="bar top">
+      <button class="icon-btn" id="btn-cancel">Cancel</button>
+      <h2 class="bar-title" id="edit-title">New workout</h2>
+      <span class="bar-spacer"></span>
+    </header>
+    <main class="content">
+      <div class="field">
+        <label class="label" for="w-title">Title</label>
+        <input class="input" type="text" id="w-title" placeholder="Push, Pull, Legs or your own" maxlength="40"
+               autocomplete="off" autocapitalize="words" enterkeyhint="done">
+        <div class="chip-row" id="title-chips" role="group" aria-label="Title choices"></div>
+      </div>
+      <div class="prefill" id="prefill" hidden></div>
+      <label class="field">
+        <span class="label">Date</span>
+        <input class="input" type="date" id="edit-date" required>
+      </label>
+      <div id="ex-list"></div>
+      <button class="btn ghost add-ex" id="btn-add-ex">+ Add exercise</button>
+      <label class="field notes-field">
+        <span class="label">Notes</span>
+        <textarea class="input" id="w-notes" rows="3" placeholder="How did it go?"></textarea>
+      </label>
+    </main>
+    <footer class="bar bottom">
+      <button class="btn primary" id="btn-save">Save workout</button>
+    </footer>
+  </section>
+
+  <dialog id="dlg" class="sheet"></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input type="file" id="import-file" accept="application/json,.json" hidden>
+
+  <script src="db.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
